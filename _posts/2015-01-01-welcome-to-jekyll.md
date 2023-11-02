@@ -1,6 +1,6 @@
 ---
 layout: post
-title: 欢迎访问青藤外卖开发笔记
+title: "欢迎访问青藤外卖开发笔记"
 subtitle: A awesome static site generator.
 author: Jeffrey
 categories: jekyll
