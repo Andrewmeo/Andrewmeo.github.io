@@ -185,7 +185,7 @@ top: 2
 
 如此依次创建以下子工程模块：
 
-![image-20231103005123051](../assets/images/image-20231103005123051.png)
+![image-20231103005123051](https://github.com/Andrewmeo/images/blob/main/image-20231103005123051.png?raw=true)
 
 首先从上至下依次的模块功能为：
 
@@ -208,7 +208,7 @@ top: 2
 | dto    | 定义接收客户端发送的数据 |
 | vo     | 定义封装响应客户端的数据 |
 
-![image-20231103214403736](../assets/images/image-20231103214403736.png)
+![image-20231103214403736](https://github.com/Andrewmeo/images/blob/main/image-20231103214403736.png?raw=true)
 
 ## 2.2 CommonUtils模块
 
@@ -222,7 +222,7 @@ top: 2
 | properties  | 配置属性类，将项目配置文件中的配置项交给Spring管理           |
 | result      | 定义结果集，一般分用于：后端统一返回结果和封装分页查询结果   |
 
-![image-20231103214427421](../assets/images/image-20231103214427421.png)
+![image-20231103214427421](https://github.com/Andrewmeo/images/blob/main/image-20231103214427421.png?raw=true)
 
 ## 2.3 WebServer模块
 
@@ -238,7 +238,7 @@ top: 2
 | websocket      | 定义WebSocket服务类，需要交给Spring容器管理，与控制器层相似  |
 | IvyApplocation | 项目启动类                                                   |
 
-![image-20231103214513943](../assets/images/image-20231103214513943-1699024092835.png)
+![image-20231103214513943](https://github.com/Andrewmeo/images/blob/main/image-20231103214513943-1699024092835.png?raw=true)
 
 ### 2.3.1 控制器
 
@@ -266,11 +266,11 @@ Tomcat就是一个WEB容器，当启动一个WEB项目程序时，Tomcat容器�
 
 在IDEA编辑器中已经集成了Git的功能，我们选中整个项目，打开VCS（版本控制系统），点击Create Git Repository创建本地仓库（相当于git init指令）：
 
-![image-20231009140520878](../assets/images/image-20231009115557903.png)
+![image-20231009140520878](https://github.com/Andrewmeo/images/blob/main/image-20231009115557903.png?raw=true)
 
 可以通过右键项目文件进行add到git的暂存区，同时控制台也会有相应指令显示：
 
-![image-20231009140520878.png](../assets/images/image-20231009140520878.png)
+![image-20231009140520878.png](https://github.com/Andrewmeo/images/blob/main/image-20231009140520878.png?raw=true)
 
 commit到本地仓库：
 
@@ -280,13 +280,13 @@ commit到本地仓库：
 > git commit -m "日志说明信息"
 > ```
 
-![image-20231009115921793](../assets/images/image-20231009115921793.png)
+![image-20231009115921793](https://github.com/Andrewmeo/images/blob/main/image-20231009115921793.png?raw=true)
 
 在GitHub上创建一个远程仓库：
 
-![image-20231009120616875](../assets/images/image-20231009120616875.png)
+![image-20231009120616875](https://github.com/Andrewmeo/images/blob/main/image-20231009120616875.png?raw=true)
 
 创建完远程仓库后就可以在IDEA中连接仓库进行推送了：
 
-![image-20231009140343404](../assets/images/image-20231009140343404.png)
+![image-20231009140343404](https://github.com/Andrewmeo/images/blob/main/image-20231009140343404.png?raw=true)
 
