@@ -1,165 +1,292 @@
 ---
 layout: post
-title: Quick markdown example
-subtitle: This is a quick markdown example
+title: 后端工程准备
+subtitle: 进行后端项目结构初始搭建
 categories: markdown
-tags: [example]
+tags: [项目工程搭建]
 top: 2
 ---
 
-Paragraphs are separated by a blank line.
+# 1 Maven构建工具
 
-2nd paragraph. *Italic*, **bold**, and `monospace`. Itemized lists
-look like:
+## 1.1 分模块设计与开发
 
-  * this one
-  * that one
-  * the other one
+将一个完整的项目按照功能拆分成若干个子模块，使用时只需通过Maven引入依赖即可。方便项目的管理维护、扩展，也方便模块间的相互调用，资源共享。
 
-Note that --- not considering the asterisk --- the actual text
-content starts at 4-columns in.
+继承：继承描述的是两个父子工程的关系，与java中的继承相似，子工程可以继承父工程中的配置信息，常见于依赖关系的继承和传递。如在SpringBoot工程的xml文件中配置了spring-boot-starter-parent父工程。
 
-> Block quotes are
-> written like so.
+聚合：将多个模块组织成一个整体，同时进行项目的构建。一个不具有业务功能的"空工程"（只有一个pom文件的父工程）。在项目构建时，聚合工程中所包含的模块会根据它们之间的依赖关系设置构建顺序。
+
+总结继承与聚合的作用：
+
+1. 继承用于统一管理依赖，简化依赖配置。
+2. 聚合用于快速构建项目。
+
+注意事项：分模块设计不是先将工程开发完毕，然后进行拆分。而是需要先针对模块功能进行设计，再进行编码。
+
+### 1.1.1父工程模块
+
+我们一般会为子模块创建一个父工程，由于Maven的依赖传递，每个子模块都会继承依赖于该父工程，父工程中的依赖在子模块中也能使用。
+
+作用：统一管理依赖，简化项目依赖配置。
+
+实现：<parent>...</parent>
+
+1. 首先创建父工程模块如ivy-takeaway，设置打包方为pom（默认jar）。
+
+> 1. jar：普通模块打包，springboot项目基本都是jar包（内嵌Tomcat运行）。
+> 2. war：基于servlet和原始的springMVC开发的web程序打包，需要部署在外部的Tomcat服务器上运行。
+> 3. pom：父工程或聚合工程，该模块不写代码，仅仅用于的统一管理。
+
+2. 在父工程的pom文件中通过<dependencies>来统一管理子工程的直接依赖。可以在此标签下引入子工程共同的依赖。在此标签下引入的依赖，所有子工程都可以使用。
+
+3. 在父工程的pom文件中通过<dependencyManagement>来统一管理依赖版本。在该标签下引入统一的依赖。在子工程中添加相关依赖，不用指定版本号。变更依赖版本时，只需在父工程中统一修改即可。如果子工程中添加的依赖指定了版本号，那就以子工程的为准。
+
+以下是Maven父工程核心文件结构，其中定义了分析之后将项目会用到依赖坐标：
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.bree</groupId>
+    <artifactId>ivy-takeaway</artifactId>
+    <packaging>pom</packaging>
+    <version>1.0-SNAPSHOT</version>
+
+    <modules>
+        <module>ivy-pojo</module>
+        <module>ivy-web</module>
+        <module>ivy-utils</module>
+    </modules>
+
+    <parent>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <groupId>org.springframework.boot</groupId>
+        <version>2.7.3</version>
+    </parent>
+
+    <properties>
+        <java.version>11</java.version>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+        <mybatis.spring>2.2.0</mybatis.spring>
+        <lombok>1.18.20</lombok>
+        <fastjson>1.2.76</fastjson>
+        <commons.lang>2.6</commons.lang>
+        <druid>1.2.1</druid>
+        <pagehelper>1.3.0</pagehelper>
+        <aliyun.sdk.oss>3.10.2</aliyun.sdk.oss>
+        <knife4j>3.0.2</knife4j>
+        <aspectj>1.9.4</aspectj>
+        <jjwt>0.9.1</jjwt>
+        <jaxb-api>2.3.1</jaxb-api>
+        <poi>3.16</poi>
+    </properties>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.mybatis.spring.boot</groupId>
+                <artifactId>mybatis-spring-boot-starter</artifactId>
+                <version>${mybatis.spring}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>${fastjson}</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-lang</groupId>
+                <artifactId>commons-lang</artifactId>
+                <version>${commons.lang}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid-spring-boot-starter</artifactId>
+                <version>${druid}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.pagehelper</groupId>
+                <artifactId>pagehelper-spring-boot-starter</artifactId>
+                <version>${pagehelper}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.github.xiaoymin</groupId>
+                <artifactId>knife4j-spring-boot-starter</artifactId>
+                <version>${knife4j}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.aspectj</groupId>
+                <artifactId>aspectjrt</artifactId>
+                <version>${aspectj}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.aspectj</groupId>
+                <artifactId>aspectjweaver</artifactId>
+                <version>${aspectj}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt</artifactId>
+                <version>${jjwt}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.aliyun.oss</groupId>
+                <artifactId>aliyun-sdk-oss</artifactId>
+                <version>${aliyun.sdk.oss}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>javax.xml.bind</groupId>
+                <artifactId>jaxb-api</artifactId>
+                <version>${jaxb-api}</version>
+            </dependency>
+            <!-- poi -->
+            <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>poi</artifactId>
+                <version>${poi}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>poi-ooxml</artifactId>
+                <version>${poi}</version>
+            </dependency>
+            <!--微信支付-->
+            <dependency>
+                <groupId>com.github.wechatpay-apiv3</groupId>
+                <artifactId>wechatpay-apache-httpclient</artifactId>
+                <version>0.4.8</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+</project>
+```
+
+### 1.1.2子工程模块
+
+在父工程下右键创建子工程，创建子模块的时候会直接指定父工程，打开子模块Maven文件，其中自动添加了以下代码：
+
+```xml
+<parent>
+    <artifactId>ivy-takeaway</artifactId>
+    <groupId>com.bree</groupId>
+    <version>1.0-SNAPSHOT</version>
+</parent>
+```
+
+如此依次创建以下子工程模块：
+
+![image-20231103005123051](../assets/images/image-20231103005123051.png)
+
+首先从上至下依次的模块功能为：
+
+| 模块名       | 说明                                                         |
+| ------------ | ------------------------------------------------------------ |
+| ivy-takeaway | maven父工程，统一依赖管理，聚合构建子模块。                  |
+| ivy-pojo     | 实体类模块，存放entity、dto、vo。                            |
+| ivy-utils    | 通用工具模块，存放一些属性配置类、工具类、常量类、异常类等。 |
+| ivy-web      | 核心服务模块，存放项目启动类，业务接口开发，数据映射处理等。 |
+
+# 2 模块功能类设计
+
+## 2.1 POJO模块
+
+包含entity、dto、vo实体类。
+
+| 包名   | 说明                     |
+| ------ | ------------------------ |
+| entity | 定义数据库表映射对象     |
+| dto    | 定义接收客户端发送的数据 |
+| vo     | 定义封装响应客户端的数据 |
+
+![image-20231103214403736](../assets/images/image-20231103214403736.png)
+
+## 2.2 CommonUtils模块
+
+| 包名        | 说明                                                         |
+| ----------- | ------------------------------------------------------------ |
+| constant    | 定义常量类                                                   |
+| context     | 定义上下文对象，设置和获取数据                               |
+| enumeration | 定义枚举类                                                   |
+| exception   | 定义异常类，用于抛出各种业务异常                             |
+| json        | 基于jackson的JSON对象的序列化和反序列化，即将Java对象转为json，或者将json转为Java对象 |
+| properties  | 配置属性类，将项目配置文件中的配置项交给Spring管理           |
+| result      | 定义结果集，一般分用于：后端统一返回结果和封装分页查询结果   |
+
+![image-20231103214427421](../assets/images/image-20231103214427421.png)
+
+## 2.3 WebServer模块
+
+| 包名或类名     | 说明                                                         |
+| -------------- | ------------------------------------------------------------ |
+| annotation     | 定义注解类                                                   |
+| aspect         | 定义切面类                                                   |
+| controller     | 定义控制器类，通过RestController注解标记声明控制器层Bean组件 |
+| handler        | 定义拦截器类用于令牌校验，以及全局异常捕捉器类用于处理项目中抛出的业务异常 |
+| mapper         | 定义数据映射接口，Mapper注解标识为Mybatis映射器的接口组件    |
+| service        | 定义业务逻辑处理和数据访问，通过Service注解标识服务层组件    |
+| task           | 定义定时任务类，定时处理某些业务功能                         |
+| websocket      | 定义WebSocket服务类，需要交给Spring容器管理，与控制器层相似  |
+| IvyApplocation | 项目启动类                                                   |
+
+![image-20231103214513943](../assets/images/image-20231103214513943-1699024092835.png)
+
+### 2.3.1 控制器
+
+控制器Controller基于Servlet服务程序，也可以说Controller类似于Servlet。Controller和Servlet都是用来接收客户端发送的请求消息request，以及返回给客户端响应消息response的服务程序。运行在容器中(如Tomcat、Jetty服务器等)，容器会根据请求路径将其分配给对应的Controller或者Servlet进行处理，后将处理结果作为响应消息发送回客户端。
+
+在Tomcat服务器接收到请求之后，要先经过实现Servlet接口规范的**DispatcherServlet**核心控制器，Tomcat才能将请求交给到SpringBoot项目服务控制器的接口方法进行处理。
+
+> 因为Tomcat只能运行Servlet程序，如继承HttpServlet类的Servlet程序。所以SpringBoot中的Controller是不能在Tomcat上直接运行的，所以需要借组DispatcherServlet规范。所以说Tomcat只支持Servlet/JSP和少量的JavaEE规范。称为Servlet容器。
+
+Servlet接收到请求之后会将请求消息封装成HttpServletRequest对象，里面包含请求消息的信息，DispatcherServlet将信息交给控制器接口处理后将数据返回给Tomcat。Tomcat将处理后的数据封装为HttpServletResponse，最后生成响应消息返回给客户端。
+
+Web服务器是一个软件程序，对HTTP协议的解析操作进行封装，使得程序员不必直接对协议进行操作，我们只需要配置网络地址和端口就可以，让Web开发更加便捷。
+
+Tomcat就是一个WEB容器，当启动一个WEB项目程序时，Tomcat容器就会读取web.xml配置文件信息，包括servlet、mapping，pattern，过滤器等。然后等待客户端发送请求，Tomcat接收后会进行HTTP解析，然后将请求交给对应的servlet程序处理。
+
+**所以说在网络通信中，有发送 HTTP 请求的请求端，还有接收解析 HTTP 请求的响应端。**
+
+**首先是HTTP请求，比如像 HttpClient 请求框架、OkHttp 请求框架，还有浏览器这种大型综合的 HTTP 请求框架。通过这些请求框架我们可以发送请求进行远程调用服务接口。**
+
+然后是HTTP解析框架，比如各种Web服务器，Apache、微软的IIS，Tomcat、Nginx等等。
+
+# 3 版本控制
+
+项目版本控制使用的是分布式版本控制工具Git，创建远程Git仓库和本地Git仓库，在本地仓库开发完成后推送到远程Git仓库中。
+
+在IDEA编辑器中已经集成了Git的功能，我们选中整个项目，打开VCS（版本控制系统），点击Create Git Repository创建本地仓库（相当于git init指令）：
+
+![image-20231009140520878](../assets/images/image-20231009115557903.png)
+
+可以通过右键项目文件进行add到git的暂存区，同时控制台也会有相应指令显示：
+
+![image-20231009140520878.png](../assets/images/image-20231009140520878.png)
+
+commit到本地仓库：
+
+> 相当于：
 >
-> They can span multiple paragraphs,
-> if you like.
+> ```sh
+> git commit -m "日志说明信息"
+> ```
 
-Use 3 dashes for an em-dash. Use 2 dashes for ranges (ex., "it's all
-in chapters 12--14"). Three dots ... will be converted to an ellipsis.
-Unicode is supported. ☺
+![image-20231009115921793](../assets/images/image-20231009115921793.png)
 
+在GitHub上创建一个远程仓库：
 
+![image-20231009120616875](../assets/images/image-20231009120616875.png)
 
-An h2 header
-------------
+创建完远程仓库后就可以在IDEA中连接仓库进行推送了：
 
-Here's a numbered list:
+![image-20231009140343404](../assets/images/image-20231009140343404.png)
 
- 1. first item
- 2. second item
- 3. third item
-
-Note again how the actual text starts at 4 columns in (4 characters
-from the left side). Here's a code sample:
-
-    # Let me re-iterate ...
-    for i in 1 .. 10 { do-something(i) }
-
-As you probably guessed, indented 4 spaces. By the way, instead of
-indenting the block, you can use delimited blocks, if you like:
-
-~~~
-define foobar() {
-    print "Welcome to flavor country!";
-}
-~~~
-
-(which makes copying & pasting easier). You can optionally mark the
-delimited block for Pandoc to syntax highlight it:
-
-~~~python
-import time
-# Quick, count to ten!
-for i in range(10):
-    # (but not *too* quick)
-    time.sleep(0.5)
-    print(i)
-~~~
-
-
-
-### An h3 header ###
-
-Now a nested list:
-
- 1. First, get these ingredients:
-
-      * carrots
-      * celery
-      * lentils
-
- 2. Boil some water.
-
- 3. Dump everything in the pot and follow
-    this algorithm:
-
-        find wooden spoon
-        uncover pot
-        stir
-        cover pot
-        balance wooden spoon precariously on pot handle
-        wait 10 minutes
-        goto first step (or shut off burner when done)
-
-    Do not bump wooden spoon or it will fall.
-
-Notice again how text always lines up on 4-space indents (including
-that last line which continues item 3 above).
-
-Here's a link to [a website](http://foo.bar), to a [local
-doc](local-doc.html), and to a [section heading in the current
-doc](#an-h2-header). Here's a footnote [^1].
-
-[^1]: Some footnote text.
-
-Tables can look like this:
-
-Name           Size  Material      Color
-------------- -----  ------------  ------------
-All Business      9  leather       brown
-Roundabout       10  hemp canvas   natural
-Cinderella       11  glass         transparent
-
-Table: Shoes sizes, materials, and colors.
-
-(The above is the caption for the table.) Pandoc also supports
-multi-line tables:
-
---------  -----------------------
-Keyword   Text
---------  -----------------------
-red       Sunsets, apples, and
-          other red or reddish
-          things.
-
-green     Leaves, grass, frogs
-          and other things it's
-          not easy being.
---------  -----------------------
-
-A horizontal rule follows.
-
-***
-
-Here's a definition list:
-
-apples
-  : Good for making applesauce.
-
-oranges
-  : Citrus!
-
-tomatoes
-  : There's no "e" in tomatoe.
-
-Again, text is indented 4 spaces. (Put a blank line between each
-term and  its definition to spread things out more.)
-
-Here's a "line block" (note how whitespace is honored):
-
-| Line one
-|   Line too
-| Line tree
-
-and images can be specified like so:
-
-![example image](https://user-images.githubusercontent.com/9413601/123900693-1d9ebd00-d99c-11eb-8e9e-cf7879187606.png "An exemplary image")
-
-Inline math equation: $\omega = d\phi / dt$. Display
-math should get its own line like so:
-
-$$I = \int \rho R^{2} dV$$
-
-And note that you can backslash-escape any punctuation characters
-which you wish to be displayed literally, ex.: \`foo\`, \*bar\*, etc.
