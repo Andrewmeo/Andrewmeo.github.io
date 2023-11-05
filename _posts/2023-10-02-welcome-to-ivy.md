@@ -3,7 +3,7 @@ layout: post
 title: 欢迎访问！
 subtitle: 青藤外卖项目开发笔记
 author: Maxlec
-categories: markdown
+categories: 介绍
 banner:
   video: https://vjs.zencdn.net/v/oceans.mp4
   loop: true
