@@ -228,11 +228,11 @@ public List<ShoppingCart> showShoppingCart() {
 
 在查询获取购物车商品列表的业务方法中，打上断点，启动程序。再将客户端小程序启动，小程序启动后会自动发生获取购物车商品列表的请求，请求处理到达以下断点。
 
-![image-20231025142148896](D:\Github\blog\_posts\image-20231025142148896.png)
+![](https://github.com/Andrewmeo/client_images/blob/main/image-20231025142148896.png?raw=true)
 
 单步调试，通过ThreadLocal获取到token解析出来载荷-用户id，为4，封装成shoppingCart对象进行查询。查询到该用户购物车中有三类商品。最后进行返回。
 
-![image-20231025142255168](D:\Github\blog\_posts\image-20231025142255168.png)
+![](https://github.com/Andrewmeo/client_images/blob/main/image-20231025142255168.png?raw=true)
 
 ## 3 减少购物车商品
 
@@ -316,11 +316,11 @@ Body:
 
 同样的，在实现业务实现方法中开始位置打上断点。客户端小程序执行删除购物车商品时，服务端接收到请求数据。继续单步调试。
 
-![image-20231025145503507](D:\Github\blog\_posts\image-20231025145503507.png)
+![](https://github.com/Andrewmeo/client_images/blob/main/image-20231025145503507.png?raw=true)
 
 可以看到，经过购物车商品数量number减一处理后，更新到数据库中的购物车商品数量number为0。
 
-![image-20231025150638020](D:\Github\blog\_posts\image-20231025150638020.png)
+![](https://github.com/Andrewmeo/client_images/blob/main/image-20231025150638020.png?raw=true)
 
 ## 4 清空购物车
 

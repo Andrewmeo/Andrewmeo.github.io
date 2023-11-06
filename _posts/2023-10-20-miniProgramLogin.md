@@ -124,13 +124,13 @@ HttpClient是Apache下的子项目，可以用来提供高效、最新的、功�
 
 > 微信小程序官网：https://mp.weixin.qq.com/cgi-bin/wx
 
-![image-20231016205144564](D:\Github\blog\_posts\image-20231016205144564.png)
+![](https://github.com/Andrewmeo/client_images/blob/main/image-20231016205144564.png?raw=true)
 
 开放注册范围有个人、企业、政府、媒体、其他组织。不同组织开放的权限不一样。
 
 接入流程：
 
-![image-20231016205428906](D:\Github\blog\_posts\image-20231016205428906.png)
+![](https://github.com/Andrewmeo/client_images/blob/main/image-20231016205428906.png?raw=true)
 
 ### 开发准备工作
 
@@ -140,23 +140,23 @@ HttpClient是Apache下的子项目，可以用来提供高效、最新的、功�
 
 首先进入注册页面，输入信息进行注册。
 
-![image-20231016210239235](D:\Github\blog\_posts\image-20231016210239235.png)
+![](https://github.com/Andrewmeo/client_images/blob/main/image-20231016210239235.png?raw=true)
 
 注册后进入微信公众平台，然后就可以完善小程序基本信息：
 
-![image-20231016210923589](D:\Github\blog\_posts\image-20231016210923589.png)
+![](https://github.com/Andrewmeo/client_images/blob/main/image-20231016210923589.png?raw=true)
 
 完善后下载开发工具进行开发：
 
-![image-20231016211512972](D:\Github\blog\_posts\image-20231016211512972.png)
+![](https://github.com/Andrewmeo/client_images/blob/main/image-20231016211512972.png?raw=true)
 
 安装后进行开发平台创建小程序，其中AppID在微信公众平台上开发管理中：
 
-![image-20231016212613067](D:\Github\blog\_posts\image-20231016212613067.png)
+![](https://github.com/Andrewmeo/client_images/blob/main/image-20231016212613067.png?raw=true)
 
 微信小程序开发工具的开发平台如下：
 
-![image-20231016213132625](D:\Github\blog\_posts\image-20231016213132625.png)
+![](https://github.com/Andrewmeo/client_images/blob/main/image-20231016213132625.png?raw=true)
 
 ### 入门案例
 
@@ -164,11 +164,11 @@ HttpClient是Apache下的子项目，可以用来提供高效、最新的、功�
 
 **主体部分：**
 
-![image-20231016214444406](D:\Github\blog\_posts\image-20231016214444406.png)
+![](https://github.com/Andrewmeo/client_images/blob/main/image-20231016214444406.png?raw=true)
 
 **page页面：**
 
-![image-20231016214838209](D:\Github\blog\_posts\image-20231016214838209.png)
+![](https://github.com/Andrewmeo/client_images/blob/main/image-20231016214838209.png?raw=true)
 
 **编写页面代码：**
 
@@ -223,13 +223,13 @@ Page({
 
 首先上传该版本到微信公众平台，未审核的版本称为开发版本：
 
-![image-20231017121000544](D:\Github\blog\_posts\image-20231017121000544.png)
+![](https://github.com/Andrewmeo/client_images/blob/main/image-20231017121000544.png?raw=true)
 
-![image-20231017121300615](D:\Github\blog\_posts\image-20231017121300615.png)
+![](https://github.com/Andrewmeo/client_images/blob/main/image-20231017121300615.png?raw=true)
 
 上传为开发版本后还需要提交审核，通过后才能进行发布上线：
 
-![image-20231017121346227](D:\Github\blog\_posts\image-20231017121346227.png)
+![](https://github.com/Andrewmeo/client_images/blob/main/image-20231017121346227.png?raw=true)
 
 ## **用户登录流程开发**
 
@@ -254,7 +254,7 @@ Page({
 
 首先在小程序中调用login()方法获取授权码code，将授权码发给到服务端。然后服务端需要向微信服务接口发送登录凭证，最后返回登录用户的唯一标识openid，用于后续业务逻辑中前后端交互时识别用户身份，如为小程序客户端生成token令牌，当小程序要访问服务端时就会携带该token，服务端进行核验，返回业务数据。
 
-![img](D:\Github\blog\_posts\api-login.2fcc9f35.jpg)
+![](https://github.com/Andrewmeo/client_images/blob/main/api-login.2fcc9f35.jpg?raw=true)
 
 ### 使用PostMan测试以上流程
 
@@ -266,11 +266,11 @@ Page({
 
 编译小程序代码，然后调用wx.login()获取到微信用户的授权码。
 
-![image-20231017133401303](D:\Github\blog\_posts\image-20231017133401303.png)
+![](https://github.com/Andrewmeo/client_images/blob/main/image-20231017133401303.png?raw=true)
 
 打开PostMan，粘贴请求路径，设置请求方法，然后设置Query参数。最后发送请求获取返回数据。
 
-![image-20231017133802599](D:\Github\blog\_posts\image-20231017133802599.png)
+![](https://github.com/Andrewmeo/client_images/blob/main/image-20231017133802599.png?raw=true)
 
 ### 需求分析
 
@@ -466,29 +466,29 @@ Debug方式启动服务端和redis服务，然后在发送HTTP请求远程调用
 
 编译小程序，小程序启动后自动发送的第一个请求是获取店铺的营业状态：
 
-![image-20231019101645517](D:\Github\blog\_posts\image-20231019101645517.png)
+![](https://github.com/Andrewmeo/client_images/blob/main/image-20231019101645517.png?raw=true)
 
 当点击允许后，小程序调用wx.login()生成授权码code，然后发送请求传递到微信登录接口。
 
-![image-20231019102013185](D:\Github\blog\_posts\image-20231019102013185.png)
+![](https://github.com/Andrewmeo/client_images/blob/main/image-20231019102013185.png?raw=true)
 
 可以看到在发送请求远程调用的业务方法中已经获取到了用户的授权码：
 
-![image-20231019102215370](D:\Github\blog\_posts\image-20231019102215370.png)
+![](https://github.com/Andrewmeo/client_images/blob/main/image-20231019102215370.png?raw=true)
 
 单步调试可以看到已经将小程序id、小程序密钥、授权码code以及授权方式grant_type封装到了哈希集合中。
 
-![image-20231019102403274](D:\Github\blog\_posts\image-20231019102403274.png)
+![](https://github.com/Andrewmeo/client_images/blob/main/image-20231019102403274.png?raw=true)
 
 继续单步调试，已经成功通过了微信服务接口的校验，其响应了一串json数据，包含的是一长串字节数组，需要通过json解析出来，最后得到了该用户的开放标识openid以及会话密钥。
 
-![image-20231019102809246](D:\Github\blog\_posts\image-20231019102809246.png)
+![](https://github.com/Andrewmeo/client_images/blob/main/image-20231019102809246.png?raw=true)
 
 获取到openid后就是进行用户判断了，可以看到通过openid查询数据库返回用户不为null，说明该用户之前登录过。最后直接返回用户对象就行。
 
-![image-20231019103833272](D:\Github\blog\_posts\image-20231019103833272.png)
+![](https://github.com/Andrewmeo/client_images/blob/main/image-20231019103833272.png?raw=true)
 
 最后在用户登录校验成功后，接下来的一般操作就是生成jwt令牌了，可以看到我们将数据库中的用户id作为载荷生成了token。最后我们将用户id、openid以及token封装到了VO对象中响应给客户端小程序。
 
-![image-20231019104116743](D:\Github\blog\_posts\image-20231019104116743.png)
+![](https://github.com/Andrewmeo/client_images/blob/main/image-20231019104116743.png?raw=true)
 
