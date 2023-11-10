@@ -5,22 +5,15 @@ subtitle: Maxlec
 author: Maxlec
 categories: 组件开发
 banner:
-  loop: true
-  volume: 0.8
-  start_at: 8.5
-  image: https://bit.ly/3xTmdUP
+  image: https://github.com/Andrewmeo/images/blob/master/tales/0022.jpg?raw=true
   opacity: 0.618
   background: "#000"
   height: "100vh"
   min_height: "38vh"
   heading_style: "font-size: 4.25em; font-weight: bold; text-decoration: underline"
   subheading_style: "color: gold"
-tags: jekyll
+tags: aop hash datasource spi
 top: 2
-<<<<<<< HEAD
-sidebar: spi aop hash
-=======
-sidebar: spi aop hash
 ---
 
 ## 1 分库分表路由组件开发

@@ -5,11 +5,7 @@ subtitle: Maxlec的项目开发笔记
 author: Maxlec
 categories: 介绍
 banner:
-  video: https://vjs.zencdn.net/v/oceans.mp4
-  loop: true
-  volume: 0.8
-  start_at: 8.5
-  image: https://bit.ly/3xTmdUP
+  image: https://github.com/Andrewmeo/images/blob/master/tales/0051.jpg?raw=true
   opacity: 0.618
   background: "#000"
   height: "100vh"
