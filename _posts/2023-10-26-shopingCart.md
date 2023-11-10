@@ -2,7 +2,7 @@
 layout: post
 title: 购物车功能模块
 subtitle: 
-categories: 用户客户端接口开发笔记
+categories: 青藤外卖用户客户端接口开发笔记
 author: "Maxlec"
 banner:
   image: https://github.com/Andrewmeo/images/blob/master/tales/0128.jpg?raw=true

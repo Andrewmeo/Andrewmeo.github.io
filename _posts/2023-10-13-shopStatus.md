@@ -2,7 +2,7 @@
 layout: post
 title: 营业状态设置
 subtitle: 
-categories: 管理客户端接口开发笔记
+categories: 青藤外卖管理客户端接口开发笔记
 author: "Maxlec"
 banner:
   image: https://github.com/Andrewmeo/images/blob/master/tales/0100.jpg?raw=true

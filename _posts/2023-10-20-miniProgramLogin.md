@@ -2,7 +2,7 @@
 layout: post
 title: 微信小程序开发准备与用户登录
 subtitle: 
-categories: 用户客户端接口开发笔记
+categories: 青藤外卖用户客户端接口开发笔记
 author: "Maxlec"
 banner:
   image: https://github.com/Andrewmeo/images/blob/master/tales/0235.jpg?raw=true
