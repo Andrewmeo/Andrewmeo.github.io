@@ -17,6 +17,9 @@ banner:
   subheading_style: "color: gold"
 tags: jekyll
 top: 2
+<<<<<<< HEAD
+sidebar: spi aop hash
+=======
 sidebar: spi aop hash
 ---
 
