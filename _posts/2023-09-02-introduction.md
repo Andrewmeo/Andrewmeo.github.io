@@ -3,7 +3,7 @@ layout: post
 title: 分库分表路由组件分析介绍
 subtitle: Maxlec
 author: Maxlec
-categories: 组件开发
+categories: DBRouter
 banner:
   image: https://github.com/Andrewmeo/images/blob/master/tales/0022.jpg?raw=true
   opacity: 0.618
